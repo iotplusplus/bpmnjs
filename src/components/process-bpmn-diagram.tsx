@@ -2,9 +2,11 @@ import React, { useEffect, useRef } from "react";
 import BpmnModeler from "bpmn-js/lib/Modeler";
 
 const BPMNEditor = ({ 
-  bpmnXML, taskDefinitionKey, taskDefinitionKeyColor
+  bpmnXML, taskDefinitionKey, taskDefinitionKeyColor,
+  height, width, containerStyle,
 }: { 
-  bpmnXML: string; taskDefinitionKey?: string, taskDefinitionKeyColor?: string 
+  bpmnXML: string; taskDefinitionKey?: string, taskDefinitionKeyColor?: string,
+  height?: string | number, width?: string | number, containerStyle?: React.CSSProperties,
 }) => {
   const modelerRef = useRef<BpmnModeler | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -53,7 +55,16 @@ const BPMNEditor = ({
     });
   };
 
-  return <div ref={containerRef} style={{ width: "100%", height: "500px" }} />;
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        width: width ? width : "100%",
+        height: height ? height : "500px",
+        ...(!!containerStyle ? containerStyle : {}),
+      }}
+    />
+  );
 };
 
 export default BPMNEditor;

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { CamudaUrls } from "./constants";
 
 export const getCamudaApi = async ({
     baseUrl,
