@@ -443,7 +443,7 @@ export const CamundaAPI = ({baseUrl, user}: {baseUrl: string, user: string}) => 
 });
 
 
-// const camuda =  CamundaAPI({baseUrl: 'http://camundaloadbalancer-1512832890.us-east-1.elb.amazonaws.com', user: 'demo'});
+// const camuda =  CamundaAPI({baseUrl: '', user: 'demo'});
 // camuda.getTaskLists({
 //     engineName: 'default',
 // });
