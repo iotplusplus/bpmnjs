@@ -33,6 +33,9 @@ export interface Task {
     suspended: boolean;
     formKey?: string;
     tenantId?: string;
+    lastUpdated?: string;
+    camundaFormRef?: any;
+    taskState: string;
 }
 
 export interface TaskDetails extends Task {
@@ -71,6 +74,7 @@ export interface UserOperationLogEntry {
 export interface TaskForm {
     key: string;
     contextPath: string;
+    camundaFormRef: string;
 }
 
 export interface DeployedTaskForm {
@@ -86,6 +90,12 @@ export interface VariableValue {
     valueInfo?: object;
 }
 
+export interface TaskCommentPayload {
+    "message": string;
+    "userId": string;
+    "timestamp": string;
+}
+
 export interface TaskComment {
     id: string;
     userId: string;
@@ -95,6 +105,7 @@ export interface TaskComment {
     message: string;
     removalTime?: string;
     rootProcessInstanceId?: string;
+    links: any[];
 }
 
 export interface TaskAttachment {
@@ -108,8 +119,14 @@ export interface TaskAttachment {
     createTime: string;
     removalTime?: string;
     rootProcessInstanceId?: string;
+    links?: any[];
 }
 
+export interface TaskIdentityLinkPayload {
+    type: string;
+    userId?: string;
+    groupId?: string;
+}
 export interface TaskIdentityLink {
     type: string;
     userId?: string;
@@ -117,4 +134,34 @@ export interface TaskIdentityLink {
     taskId: string;
     processDefinitionId?: string;
     tenantId?: string;
+
+}
+
+export interface TaskHistory {
+    id: string;
+    deploymentId: string;
+    processDefinitionId: string;
+    processDefinitionKey: string;
+    processInstanceId: string;
+    executionId: string;
+    caseDefinitionId: string | null;
+    caseInstanceId: string | null;
+    caseExecutionId: string | null;
+    taskId: string;
+    jobId: string | null;
+    jobDefinitionId: string | null;
+    batchId: string | null;
+    userId: string;
+    timestamp: string; // ISO 8601 format
+    operationId: string;
+    externalTaskId: string | null;
+    operationType: string;
+    entityType: string;
+    property: string;
+    orgValue: string | null;
+    newValue: string | null;
+    removalTime: string | null;
+    rootProcessInstanceId: string;
+    category: string;
+    annotation: string | null;
 }

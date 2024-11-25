@@ -1,6 +1,9 @@
+const initialUrl = 'engine-rest';
+
 export const CamudaUrls = {
     // Engine APIs
-    getEngines: () => `/rest/engine`,
+    tasklistLogin: () => `/camunda/api/admin/auth/user/default/login/tasklist`,
+    getEngines: () => `/${initialUrl}/engine`,
 
     // Task APIs
     getTaskLists: ({
@@ -14,7 +17,7 @@ export const CamudaUrls = {
         maxResults?: number;
         itemCount?: boolean;
     }) =>
-        `/rest/engine/${engineName}/filter?firstResult=${firstResult}&maxResults=${maxResults}&itemCount=${itemCount}&resourceType=Task`,
+        `/${initialUrl}/engine/${engineName}/filter?firstResult=${firstResult}&maxResults=${maxResults}&itemCount=${itemCount}&resourceType=Task`,
     getTasks: ({
         engineName,
         taskListId,
@@ -26,14 +29,14 @@ export const CamudaUrls = {
         firstResult?: number;
         maxResults?: number;
     }) =>
-        `/rest/engine/${engineName}/filter/${taskListId}/list?firstResult=${firstResult}&maxResults=${maxResults}`,
+        `/${initialUrl}/engine/${engineName}/filter/${taskListId}/list?firstResult=${firstResult}&maxResults=${maxResults}`,
     getTaskDetails: ({
         engineName,
         taskId,
     }: {
         engineName: string;
         taskId: string;
-    }) => `/rest/engine/${engineName}/task/${taskId}`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${taskId}`,
     getTaskDiagram: ({
         engineName,
         processDefinitionId,
@@ -41,7 +44,7 @@ export const CamudaUrls = {
         engineName: string;
         processDefinitionId: string;
     }) =>
-        `/rest/engine/${engineName}/process-definition/${processDefinitionId}/xml`,
+        `/${initialUrl}/engine/${engineName}/process-definition/${processDefinitionId}/xml`,
     getTaskHistory: ({
         engineName,
         id,
@@ -53,42 +56,42 @@ export const CamudaUrls = {
         firstResult?: number;
         maxResults?: number;
     }) =>
-        `/rest/engine/${engineName}/history/user-operation?taskId=${id}&maxResults=${maxResults}&firstResult=${firstResult}`,
+        `/${initialUrl}/engine/${engineName}/history/user-operation?taskId=${id}&maxResults=${maxResults}&firstResult=${firstResult}`,
     completeTask: ({
         engineName,
         taskId,
     }: {
         engineName: string;
         taskId: string;
-    }) => `/rest/engine/${engineName}/task/${taskId}/complete`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${taskId}/complete`,
     claimTask: ({
         engineName,
         taskId,
     }: {
         engineName: string;
         taskId: string;
-    }) => `/rest/engine/${engineName}/task/${taskId}/claim`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${taskId}/claim`,
     unclaimTask: ({
         engineName,
         taskId,
     }: {
         engineName: string;
         taskId: string;
-    }) => `/rest/engine/${engineName}/task/${taskId}/unclaim`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${taskId}/unclaim`,
     delegateTask: ({
         engineName,
         taskId,
     }: {
         engineName: string;
         taskId: string;
-    }) => `/rest/engine/${engineName}/task/${taskId}/delegate`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${taskId}/delegate`,
     resolveTask: ({
         engineName,
         taskId,
     }: {
         engineName: string;
         taskId: string;
-    }) => `/rest/engine/${engineName}/task/${taskId}/resolve`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${taskId}/resolve`,
 
     // Task Forms
     getTaskForm: ({
@@ -97,21 +100,21 @@ export const CamudaUrls = {
     }: {
         engineName: string;
         id: string;
-    }) => `/rest/engine/${engineName}/task/${id}/form`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${id}/form`,
     getDeployedTaskForm: ({
         engineName,
         id,
     }: {
         engineName: string;
         id: string;
-    }) => `/rest/engine/${engineName}/task/${id}/deployed-form?noCache=${new Date().getTime()}`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${id}/deployed-form?noCache=${new Date().getTime()}`,
     submitTaskForm: ({
         engineName,
         id,
     }: {
         engineName: string;
         id: string;
-    }) => `/rest/engine/${engineName}/task/${id}/submit-form`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${id}/submit-form`,
 
     // Task Variables
     getTaskVariables: ({
@@ -120,7 +123,7 @@ export const CamudaUrls = {
     }: {
         engineName: string;
         id: string;
-    }) => `/rest/engine/${engineName}/task/${id}/variables`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${id}/variables`,
     getTaskVariable: ({
         engineName,
         id,
@@ -129,7 +132,7 @@ export const CamudaUrls = {
         engineName: string;
         id: string;
         varName: string;
-    }) => `/rest/engine/${engineName}/task/${id}/variables/${varName}`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${id}/variables/${varName}`,
     updateTaskVariable: ({
         engineName,
         id,
@@ -138,7 +141,7 @@ export const CamudaUrls = {
         engineName: string;
         id: string;
         varName: string;
-    }) => `/rest/engine/${engineName}/task/${id}/variables/${varName}`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${id}/variables/${varName}`,
     deleteTaskVariable: ({
         engineName,
         id,
@@ -147,7 +150,7 @@ export const CamudaUrls = {
         engineName: string;
         id: string;
         varName: string;
-    }) => `/rest/engine/${engineName}/task/${id}/variables/${varName}`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${id}/variables/${varName}`,
 
     // Task Comments
     getTaskComments: ({
@@ -156,14 +159,14 @@ export const CamudaUrls = {
     }: {
         engineName: string;
         id: string;
-    }) => `/rest/engine/${engineName}/task/${id}/comment`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${id}/comment`,
     addTaskComment: ({
         engineName,
         id,
     }: {
         engineName: string;
         id: string;
-    }) => `/rest/engine/${engineName}/task/${id}/comment/create`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${id}/comment/create`,
 
     // Task Attachments
     getTaskAttachments: ({
@@ -172,14 +175,14 @@ export const CamudaUrls = {
     }: {
         engineName: string;
         id: string;
-    }) => `/rest/engine/${engineName}/task/${id}/attachment`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${id}/attachment`,
     addTaskAttachment: ({
         engineName,
         id,
     }: {
         engineName: string;
         id: string;
-    }) => `/rest/engine/${engineName}/task/${id}/attachment/create`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${id}/attachment/create`,
     getTaskAttachment: ({
         engineName,
         id,
@@ -188,16 +191,16 @@ export const CamudaUrls = {
         engineName: string;
         id: string;
         attachmentId: string;
-    }) => `/rest/engine/${engineName}/task/${id}/attachment/${attachmentId}`,
-    getTaskAttachmentData: ({
-        engineName,
-        id,
-        attachmentId,
-    }: {
-        engineName: string;
-        id: string;
-        attachmentId: string;
-    }) => `/rest/engine/${engineName}/task/${id}/attachment/${attachmentId}/data`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${id}/attachment/${attachmentId}`,
+    // getTaskAttachmentData: ({
+    //     engineName,
+    //     id,
+    //     attachmentId,
+    // }: {
+    //     engineName: string;
+    //     id: string;
+    //     attachmentId: string;
+    // }) => `/${initialUrl}/engine/${engineName}/task/${id}/attachment/${attachmentId}/data`,
 
     // Task Identity Links
     getTaskIdentityLinks: ({
@@ -206,19 +209,19 @@ export const CamudaUrls = {
     }: {
         engineName: string;
         id: string;
-    }) => `/rest/engine/${engineName}/task/${id}/identity-links`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${id}/identity-links`,
     addTaskIdentityLink: ({
         engineName,
         id,
     }: {
         engineName: string;
         id: string;
-    }) => `/rest/engine/${engineName}/task/${id}/identity-links`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${id}/identity-links`,
     deleteTaskIdentityLink: ({
         engineName,
         id,
     }: {
         engineName: string;
         id: string;
-    }) => `/rest/engine/${engineName}/task/${id}/identity-links`,
+    }) => `/${initialUrl}/engine/${engineName}/task/${id}/identity-links`,
 };
