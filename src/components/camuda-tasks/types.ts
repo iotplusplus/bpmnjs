@@ -237,3 +237,40 @@ export interface ErrorResponseDto {
   code?: number;
   details?: string;
 }
+
+export interface ProcessDefinitionDto {
+  id: string;
+  key: string;
+  category: string;
+  description: string;
+  name: string;
+  version: number;
+  resource: string;
+  deploymentId: string;
+  tenantId?: string;
+  versionTag?: string;
+  historyTimeToLive?: number;
+  startableInTasklist: boolean;
+}
+
+export interface ProcessDefinitionXmlDto {
+  id: string;
+  bpmn20Xml: string;
+}
+
+export interface StartProcessInstanceDto {
+  businessKey?: string;
+  variables?: Record<string, VariableValueDto>;
+  withVariablesInReturn?: boolean;
+}
+
+export interface StartProcessInstanceResponseDto {
+  id: string;
+  definitionId: string;
+  businessKey?: string;
+  caseInstanceId?: string;
+  ended: boolean;
+  suspended: boolean;
+  tenantId?: string;
+  variables?: Record<string, VariableValueDto>;
+}

@@ -20,6 +20,10 @@ import {
   TaskUpdateDto,
   BulkDeleteDto,
   CreateTaskAttachmentPayload,
+  StartProcessInstanceDto,
+  StartProcessInstanceResponseDto,
+  ProcessDefinitionDto,
+  ProcessDefinitionXmlDto,
 } from './types';
 import { addTaskAttachment } from './attachment';
 
@@ -412,6 +416,61 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
       const url = API_ENDPOINTS.TASK_VARIABLE.MODIFY.replace('{id}', taskId);
       await apiService.post<Record<string, VariableValueDto>, void>(url, data);
     },
+
+    // Process Definition
+    listProcessDefinitions: async (): Promise<ProcessDefinitionDto[]> =>
+      (await apiService.get<ProcessDefinitionDto[]>(API_ENDPOINTS.PROCESS_DEFINITION.LIST)).data,
+  
+    getProcessDefinitionById: async (id: string): Promise<ProcessDefinitionDto> => {
+      const url = API_ENDPOINTS.PROCESS_DEFINITION.GET_BY_ID.replace('{id}', id);
+      return (await apiService.get<ProcessDefinitionDto>(url)).data;
+    },
+  
+    getProcessDefinitionByKey: async (key: string): Promise<ProcessDefinitionDto> => {
+      const url = API_ENDPOINTS.PROCESS_DEFINITION.GET_BY_KEY.replace('{key}', key);
+      return (await apiService.get<ProcessDefinitionDto>(url)).data;
+    },
+  
+    getProcessDefinitionXmlById: async (id: string): Promise<ProcessDefinitionXmlDto> => {
+      const url = API_ENDPOINTS.PROCESS_DEFINITION.XML_BY_ID.replace('{id}', id);
+      return (await apiService.get<ProcessDefinitionXmlDto>(url)).data;
+    },
+  
+    getProcessDefinitionXmlByKey: async (key: string): Promise<ProcessDefinitionXmlDto> => {
+      const url = API_ENDPOINTS.PROCESS_DEFINITION.XML_BY_KEY.replace('{key}', key);
+      return (await apiService.get<ProcessDefinitionXmlDto>(url)).data;
+    },
+  
+    startProcessInstanceById: async (
+      id: string,
+      data: StartProcessInstanceDto
+    ): Promise<StartProcessInstanceResponseDto> => {
+      const url = API_ENDPOINTS.PROCESS_DEFINITION.START_BY_ID.replace('{id}', id);
+      return (await apiService.post<StartProcessInstanceDto, StartProcessInstanceResponseDto>(url, data)).data;
+    },
+  
+    startProcessInstanceByKey: async (
+      key: string,
+      data: StartProcessInstanceDto
+    ): Promise<StartProcessInstanceResponseDto> => {
+      const url = API_ENDPOINTS.PROCESS_DEFINITION.START_BY_KEY.replace('{key}', key);
+      return (await apiService.post<StartProcessInstanceDto, StartProcessInstanceResponseDto>(url, data)).data;
+    },
+  
+    suspendProcessDefinitionById: async (id: string, data: { suspended: boolean; includeProcessInstances?: boolean }) => {
+      const url = API_ENDPOINTS.PROCESS_DEFINITION.SUSPEND_BY_ID.replace('{id}', id);
+      await apiService.put<typeof data, void>(url, data);
+    },
+  
+    activateProcessDefinitionById: async (id: string, data: { suspended: boolean; includeProcessInstances?: boolean }) => {
+      const url = API_ENDPOINTS.PROCESS_DEFINITION.ACTIVATE_BY_ID.replace('{id}', id);
+      await apiService.put<typeof data, void>(url, data);
+    },
+  
+    deleteProcessDefinitionById: async (id: string): Promise<void> => {
+      const url = API_ENDPOINTS.PROCESS_DEFINITION.DELETE_BY_ID.replace('{id}', id);
+      await apiService.delete<void>(url);
+    },  
   };
 };
 
@@ -423,12 +482,7 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
 //             contextPath: "engine-rest",
 //         }
 //     });
-//     const res = await camudaApi.createTaskAttachment('0441958d-a8d2-11ef-aebb-1287199eca6d', {
-//         'attachment-name': '',
-//         'attachment-description': '',
-//         'attachment-type': '',
-//         url: ''
-//     });
+//     const res = await camudaApi.getProcessDefinitionXmlById('Model_Request_2:1:abf05a52-a72c-11ef-aebb-1287199eca6d');
 //     console.log({res});
     
 // }
