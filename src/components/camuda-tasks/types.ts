@@ -88,6 +88,21 @@ export interface TaskDto {
   delegationState?: string;
   priority: number;
   tenantId?: string;
+  lastUpdated: string;
+  description: null,
+  executionId: string;
+  owner?: string;
+  parentTaskId?: string;
+  processDefinitionId: string;
+  processInstanceId: string;
+  taskDefinitionKey: string;
+  caseExecutionId?: string;
+  caseInstanceId?: string;
+  caseDefinitionId?: string;
+  suspended: boolean;
+  formKey?: string;
+  camundaFormRef?: any;
+  taskState: string;
 }
 
 export interface CreateTaskAttachmentPayload {
