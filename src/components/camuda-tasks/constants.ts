@@ -50,6 +50,14 @@ export const API_ENDPOINTS = {
     COMPLETE: '/task/{id}/complete',
     SET_DUEDATE: '/task/{id}/duedate',
   },
+  TASK_FORM: {
+    GET_FORM_KEY: '/task/{id}/form',
+    GET_RENDERED_FORM: '/task/{id}/rendered-form',
+    GET_DEPLOYED_FORM: '/task/{id}/deployed-form',
+    GET_FORM_VARIABLES: '/task/{id}/form-variables',
+    SUBMIT_FORM: '/task/{id}/submit-form',
+    RESOLVE_TASK: '/task/{id}/resolve',
+  },
   TASK_ATTACHMENT: {
     LIST: '/task/{id}/attachment',
     CREATE: '/task/{id}/attachment/create',

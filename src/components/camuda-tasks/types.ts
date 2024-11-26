@@ -330,3 +330,33 @@ export interface HistoricUserOperationLogQueryDto {
 export interface HistoricUserOperationLogCountDto {
   count: number;
 }
+
+export interface FormKeyDto {
+  key: string;
+  contextPath?: string;
+  camundaFormRef?: string;
+}
+
+export interface RenderedFormDto {
+  renderedForm: string;
+}
+
+export interface FormVariablesDto {
+  [key: string]: {
+    type: string;
+    value?: any;
+    valueInfo?: any;
+  };
+}
+
+export interface SubmitFormPayload {
+  variables: Record<string, { value: any; type: string }>;
+}
+
+export interface ResolveTaskPayload {
+  variables: Record<string, { value: any; type: string }>;
+}
+
+export interface DeployedFormDto {
+  form: string;
+}

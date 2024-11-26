@@ -27,6 +27,12 @@ import {
   HistoricUserOperationLogQueryDto,
   HistoricUserOperationLogDto,
   HistoricUserOperationLogCountDto,
+  FormKeyDto,
+  RenderedFormDto,
+  DeployedFormDto,
+  FormVariablesDto,
+  SubmitFormPayload,
+  ResolveTaskPayload,
 } from './types';
 import { addTaskAttachment } from './attachment';
 
@@ -498,6 +504,46 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
         )
       ).data;
     },
+    
+    // Get form key for a task
+    getFormKey: async (taskId: string): Promise<FormKeyDto> => {
+      const url = API_ENDPOINTS.TASK_FORM.GET_FORM_KEY.replace('{id}', taskId);
+      return (await apiService.get<FormKeyDto>(url)).data;
+    },
+
+    // Get rendered form for a task
+    getRenderedForm: async (taskId: string): Promise<RenderedFormDto> => {
+      const url = API_ENDPOINTS.TASK_FORM.GET_RENDERED_FORM.replace('{id}', taskId);
+      return (await apiService.get<RenderedFormDto>(url)).data;
+    },
+
+    // Get deployed form for a task
+    getDeployedForm: async (taskId: string): Promise<DeployedFormDto> => {
+      const url = API_ENDPOINTS.TASK_FORM.GET_DEPLOYED_FORM.replace('{id}', taskId);
+      return (await apiService.get<DeployedFormDto>(url)).data;
+    },
+
+    // Get form variables for a task
+    getFormVariables: async (
+      taskId: string,
+      variableNames?: string[]
+    ): Promise<FormVariablesDto> => {
+      const url = API_ENDPOINTS.TASK_FORM.GET_FORM_VARIABLES.replace('{id}', taskId);
+      const config = variableNames ? { params: { variableNames: variableNames.join(',') } } : undefined;
+      return (await apiService.get<FormVariablesDto>(url, config)).data;
+    },
+
+    // Submit form for a task
+    submitForm: async (taskId: string, payload: SubmitFormPayload): Promise<void> => {
+      const url = API_ENDPOINTS.TASK_FORM.SUBMIT_FORM.replace('{id}', taskId);
+      await apiService.post<SubmitFormPayload, void>(url, payload);
+    },
+
+    // Resolve task
+    resolveTask: async (taskId: string, payload: ResolveTaskPayload): Promise<void> => {
+      const url = API_ENDPOINTS.TASK_FORM.RESOLVE_TASK.replace('{id}', taskId);
+      await apiService.post<ResolveTaskPayload, void>(url, payload);
+    },
   };
 };
 
@@ -509,7 +555,7 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
 //             contextPath: "engine-rest",
 //         }
 //     });
-//     const res = await camudaApi.getProcessDefinitionXmlById('Model_Request_2:1:abf05a52-a72c-11ef-aebb-1287199eca6d');
+//     const res = await camudaApi.getRenderedForm('0441958d-a8d2-11ef-aebb-1287199eca6d');
 //     console.log({res});
     
 // }
