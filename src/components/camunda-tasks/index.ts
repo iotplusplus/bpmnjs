@@ -33,6 +33,13 @@ import {
   FormVariablesDto,
   SubmitFormPayload,
   ResolveTaskPayload,
+  FilterDto,
+  CreateFilterDto,
+  UpdateFilterDto,
+  ExecuteFilterDto,
+  ExecuteFilterCountDto,
+  SortingOptionDto,
+  ExtendedFilterInfoDto,
 } from './types';
 import { addTaskAttachment } from './attachment';
 
@@ -543,6 +550,91 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
     resolveTask: async (taskId: string, payload: ResolveTaskPayload): Promise<void> => {
       const url = API_ENDPOINTS.TASK_FORM.RESOLVE_TASK.replace('{id}', taskId);
       await apiService.post<ResolveTaskPayload, void>(url, payload);
+    },
+
+    // List all filters
+    listFilters: async (): Promise<FilterDto[]> => {
+      return (await apiService.get<FilterDto[]>(API_ENDPOINTS.FILTER.LIST)).data;
+    },
+  
+    // Create a new filter
+    createFilter: async (data: CreateFilterDto): Promise<FilterDto> => {
+      return (await apiService.post<CreateFilterDto, FilterDto>(API_ENDPOINTS.FILTER.CREATE, data)).data;
+    },
+  
+    // Get a filter by ID
+    getFilterById: async (id: string): Promise<FilterDto> => {
+      const url = API_ENDPOINTS.FILTER.GET_BY_ID.replace('{id}', id);
+      return (await apiService.get<FilterDto>(url)).data;
+    },
+  
+    // Update a filter by ID
+    updateFilterById: async (id: string, data: UpdateFilterDto): Promise<void> => {
+      const url = API_ENDPOINTS.FILTER.UPDATE_BY_ID.replace('{id}', id);
+      await apiService.put<UpdateFilterDto, void>(url, data);
+    },
+  
+    // Delete a filter by ID
+    deleteFilterById: async (id: string): Promise<void> => {
+      const url = API_ENDPOINTS.FILTER.DELETE_BY_ID.replace('{id}', id);
+      await apiService.delete<void>(url);
+    },
+  
+    // Execute a filter to fetch the filtered items
+    executeFilter: async <T = any>(id: string): Promise<ExecuteFilterDto<T>> => {
+      const url = API_ENDPOINTS.FILTER.EXECUTE.replace('{id}', id);
+      return (await apiService.get<ExecuteFilterDto<T>>(url)).data;
+    },
+  
+    // Execute a filter to count the filtered items
+    executeFilterCount: async (id: string): Promise<ExecuteFilterCountDto> => {
+      const url = API_ENDPOINTS.FILTER.EXECUTE_COUNT.replace('{id}', id);
+      return (await apiService.get<ExecuteFilterCountDto>(url)).data;
+    },
+  
+    // Execute a filter to fetch a single result
+    executeFilterSingleResult: async <T = any>(id: string): Promise<T> => {
+      const url = API_ENDPOINTS.FILTER.EXECUTE_SINGLE.replace('{id}', id);
+      return (await apiService.get<T>(url)).data;
+    },
+  
+    // Get sorting options for filters
+    getSortingOptions: async (): Promise<SortingOptionDto[]> => {
+      return (await apiService.get<SortingOptionDto[]>(API_ENDPOINTS.FILTER.SORTING_OPTIONS)).data;
+    },
+  
+    // Get extended filter information by ID
+    getExtendedFilterInfo: async (id: string): Promise<ExtendedFilterInfoDto> => {
+      const url = API_ENDPOINTS.FILTER.GET_EXTENDED_INFO_BY_ID.replace('{id}', id);
+      return (await apiService.get<ExtendedFilterInfoDto>(url)).data;
+    },
+  
+    // Update extended filter information
+    updateExtendedFilterInfo: async (
+      id: string,
+      resourceId: string,
+      data: Partial<ExtendedFilterInfoDto>
+    ): Promise<void> => {
+      const url = API_ENDPOINTS.FILTER.UPDATE_EXTENDED_INFO.replace('{id}', id).replace('{resourceId}', resourceId);
+      await apiService.put<Partial<ExtendedFilterInfoDto>, void>(url, data);
+    },
+  
+    // Delete extended filter information
+    deleteExtendedFilterInfo: async (id: string, resourceId: string): Promise<void> => {
+      const url = API_ENDPOINTS.FILTER.DELETE_EXTENDED_INFO.replace('{id}', id).replace('{resourceId}', resourceId);
+      await apiService.delete<void>(url);
+    },
+  
+    // Count extended filter information
+    countExtendedFilterInfo: async (id: string, resourceId: string): Promise<ExecuteFilterCountDto> => {
+      const url = API_ENDPOINTS.FILTER.EXTENDED_INFO_COUNT.replace('{id}', id).replace('{resourceId}', resourceId);
+      return (await apiService.get<ExecuteFilterCountDto>(url)).data;
+    },
+  
+    // List extended filter information
+    listExtendedFilterInfo: async <T = any>(id: string, resourceId: string): Promise<ExecuteFilterDto<T>> => {
+      const url = API_ENDPOINTS.FILTER.EXTENDED_INFO_LIST.replace('{id}', id).replace('{resourceId}', resourceId);
+      return (await apiService.get<ExecuteFilterDto<T>>(url)).data;
     },
   };
 };

@@ -117,5 +117,21 @@ export const API_ENDPOINTS = {
   HISTORIC_USER_OPERATION_LOG: {
     LIST: '/history/user-operation',
     COUNT: '/history/user-operation/count',
-  },  
+  },
+  FILTER: {
+    LIST: '/filter',
+    CREATE: '/filter/create',
+    GET_BY_ID: '/filter/{id}',
+    UPDATE_BY_ID: '/filter/{id}',
+    DELETE_BY_ID: '/filter/{id}',
+    EXECUTE: '/filter/{id}/list',
+    EXECUTE_COUNT: '/filter/{id}/count',
+    EXECUTE_SINGLE: '/filter/{id}/singleResult',
+    SORTING_OPTIONS: '/filter/sorting',
+    GET_EXTENDED_INFO_BY_ID: '/filter/{id}/resource',
+    UPDATE_EXTENDED_INFO: '/filter/{id}/resource/{resourceId}',
+    DELETE_EXTENDED_INFO: '/filter/{id}/resource/{resourceId}',
+    EXTENDED_INFO_COUNT: '/filter/{id}/resource/{resourceId}/count',
+    EXTENDED_INFO_LIST: '/filter/{id}/resource/{resourceId}/list',
+  },
 };

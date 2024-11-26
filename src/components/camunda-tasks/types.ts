@@ -360,3 +360,49 @@ export interface ResolveTaskPayload {
 export interface DeployedFormDto {
   form: string;
 }
+
+export interface FilterDto {
+  id: string;
+  resourceType: string;
+  name: string;
+  owner?: string;
+  query: Record<string, any>;
+  properties: Record<string, any>;
+}
+
+export interface CreateFilterDto {
+  resourceType: string;
+  name: string;
+  owner?: string;
+  query: Record<string, any>;
+  properties?: Record<string, any>;
+}
+
+export interface UpdateFilterDto {
+  resourceType?: string;
+  name?: string;
+  owner?: string;
+  query?: Record<string, any>;
+  properties?: Record<string, any>;
+}
+
+export interface ExecuteFilterDto<T> {
+  items: T[];
+}
+
+export interface ExecuteFilterCountDto {
+  count: number;
+}
+
+export interface ExtendedFilterInfoDto {
+  id: string;
+  name: string;
+  resourceType: string;
+  properties: Record<string, any>;
+  extendedInfo?: any;
+}
+
+export interface SortingOptionDto {
+  field: string;
+  order: 'asc' | 'desc';
+}
