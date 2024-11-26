@@ -315,16 +315,33 @@ export interface HistoricUserOperationLogDto {
 }
 
 export interface HistoricUserOperationLogQueryDto {
-  processInstanceId?: string;
-  processDefinitionId?: string;
-  userId?: string;
-  operationType?: string;
-  entityType?: string;
-  property?: string;
-  sortBy?: string;
-  sortOrder?: string;
-  firstResult?: number;
-  maxResults?: number;
+  deploymentId?: string; // Filter by deployment id
+  processDefinitionId?: string; // Filter by process definition id
+  processDefinitionKey?: string; // Filter by process definition key
+  processInstanceId?: string; // Filter by process instance id
+  executionId?: string; // Filter by execution id
+  caseDefinitionId?: string; // Filter by case definition id
+  caseInstanceId?: string; // Filter by case instance id
+  caseExecutionId?: string; // Filter by case execution id
+  taskId?: string; // Only include operations on this task
+  externalTaskId?: string; // Only include operations on this external task
+  batchId?: string; // Only include operations on this batch
+  jobId?: string; // Filter by job id
+  jobDefinitionId?: string; // Filter by job definition id
+  userId?: string; // Only include operations of this user
+  operationId?: string; // Filter by the id of the operation
+  operationType?: string; // Filter by the type of the operation (e.g., Claim, Delegate)
+  entityType?: string; // Filter by the type of entity affected by this operation (e.g., Task, Attachment, IdentityLink)
+  entityTypeIn?: string; // Filter by a comma-separated list of entity types
+  category?: string; // Filter by the category of the operation (e.g., TaskWorker, Admin, Operator)
+  categoryIn?: string; // Filter by a comma-separated list of categories
+  property?: string; // Only include operations that changed this property (e.g., owner, assignee)
+  afterTimestamp?: string; // Restrict to entries created after this timestamp (format: yyyy-MM-dd'T'HH:mm:ss.SSSZ)
+  beforeTimestamp?: string; // Restrict to entries created before this timestamp (format: yyyy-MM-dd'T'HH:mm:ss.SSSZ)
+  sortBy?: "timestamp"; // Sort results lexicographically by a given criterion
+  sortOrder?: "asc" | "desc"; // Sort order, either ascending or descending
+  firstResult?: number; // Pagination: index of the first result to return
+  maxResults?: number; // Pagination: maximum number of results to return
 }
 
 export interface HistoricUserOperationLogCountDto {
