@@ -188,8 +188,12 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
     },
 
     // Task APIs
-    listTasks: async (): Promise<TaskDto[]> =>
-      (await apiService.get<TaskDto[]>(API_ENDPOINTS.TASK.LIST)).data,
+    listTasks: async (
+      query?: HistoricUserOperationLogQueryDto
+    ): Promise<TaskDto[]> =>
+      (await apiService.get<TaskDto[]>(API_ENDPOINTS.TASK.LIST,
+        { params: query }
+      )).data,
 
     getTaskCount: async (): Promise<number> =>
       (await apiService.get<{ count: number }>(API_ENDPOINTS.TASK.COUNT)).data.count,

@@ -78,6 +78,67 @@ export interface HistoricTaskInstanceDto {
   caseInstanceId?: string;
 }
 
+export interface TaskQueryDto {
+  taskId?: string; // Restrict to task with the given id
+  taskIdIn?: string; // Restrict to tasks with any of the given ids (comma-separated)
+  processInstanceId?: string; // Restrict to tasks belonging to a process instance with the given id
+  processInstanceIdIn?: string; // Restrict to tasks belonging to process instances with the given ids (comma-separated)
+  processInstanceBusinessKey?: string; // Restrict to tasks belonging to a process instance with the given business key
+  processInstanceBusinessKeyIn?: string; // Restrict to tasks belonging to process instances with business keys (comma-separated)
+  processInstanceBusinessKeyLike?: string; // Restrict to tasks with process instance business key containing this substring
+  processDefinitionId?: string; // Restrict to tasks belonging to a process definition with the given id
+  processDefinitionKey?: string; // Restrict to tasks belonging to a process definition with the given key
+  processDefinitionKeyIn?: string; // Restrict to tasks belonging to process definitions with the given keys (comma-separated)
+  executionId?: string; // Restrict to tasks belonging to the given execution id
+  caseInstanceId?: string; // Restrict to tasks belonging to the given case instance id
+  caseInstanceBusinessKey?: string; // Restrict to tasks belonging to the given case instance business key
+  caseInstanceBusinessKeyLike?: string; // Restrict to tasks with case instance business key containing this substring
+  caseDefinitionId?: string; // Restrict to tasks belonging to a case definition with the given id
+  caseDefinitionKey?: string; // Restrict to tasks belonging to a case definition with the given key
+  caseExecutionId?: string; // Restrict to tasks belonging to the given case execution id
+  activityInstanceIdIn?: string; // Comma-separated list of activity instance ids
+  tenantIdIn?: string; // Comma-separated list of tenant ids
+  withoutTenantId?: boolean; // Include tasks with no tenant
+  assignee?: string; // Restrict to tasks assigned to the given user
+  assigneeLike?: string; // Restrict to tasks with assignees containing this substring
+  assigneeIn?: string; // Comma-separated list of assignees
+  assigneeNotIn?: string; // Comma-separated list of excluded assignees
+  owner?: string; // Restrict to tasks owned by the given user
+  candidateGroup?: string; // Restrict to tasks offered to the given group
+  candidateUser?: string; // Restrict to tasks offered to the given user
+  includeAssignedTasks?: boolean; // Include assigned tasks in candidate queries
+  involvedUser?: string; // Restrict to tasks the user is involved in
+  taskDefinitionKey?: string; // Restrict to tasks with the given key
+  taskDefinitionKeyIn?: string; // Comma-separated list of task definition keys
+  name?: string; // Restrict to tasks with the given name
+  nameLike?: string; // Restrict to tasks with names containing this substring
+  description?: string; // Restrict to tasks with the given description
+  descriptionLike?: string; // Restrict to tasks with descriptions containing this substring
+  priority?: number; // Restrict to tasks with the given priority
+  maxPriority?: number; // Restrict to tasks with priority <= maxPriority
+  minPriority?: number; // Restrict to tasks with priority >= minPriority
+  dueDate?: string; // Restrict to tasks due on this date
+  dueAfter?: string; // Restrict to tasks due after this date
+  dueBefore?: string; // Restrict to tasks due before this date
+  followUpDate?: string; // Restrict to tasks with this follow-up date
+  followUpAfter?: string; // Restrict to tasks with follow-up dates after this date
+  followUpBefore?: string; // Restrict to tasks with follow-up dates before this date
+  createdOn?: string; // Restrict to tasks created on this date
+  createdAfter?: string; // Restrict to tasks created after this date
+  createdBefore?: string; // Restrict to tasks created before this date
+  updatedAfter?: string; // Restrict to tasks updated after this date
+  delegationState?: "PENDING" | "RESOLVED"; // Restrict to tasks in the given delegation state
+  candidateGroups?: string; // Comma-separated list of candidate groups
+  withCandidateGroups?: boolean; // Include tasks with candidate groups
+  withoutCandidateGroups?: boolean; // Exclude tasks with candidate groups
+  active?: boolean; // Restrict to active tasks
+  suspended?: boolean; // Restrict to suspended tasks
+  sortBy?: string; // Sort the results by a specific field
+  sortOrder?: "asc" | "desc"; // Sorting order
+  firstResult?: number; // Pagination: Index of the first result
+  maxResults?: number; // Pagination: Maximum number of results to return
+}
+
 export interface TaskDto {
   id: string;
   name: string;
