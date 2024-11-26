@@ -585,9 +585,14 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
     },
   
     // Execute a filter to fetch the filtered items
-    executeFilter: async <T = any>(id: string): Promise<ExecuteFilterDto<T>> => {
+    executeFilter: async <T = any>(id: string, firstResult = 0, maxResults = 15): Promise<ExecuteFilterDto<T>> => {
       const url = API_ENDPOINTS.FILTER.EXECUTE.replace('{id}', id);
-      return (await apiService.get<ExecuteFilterDto<T>>(url)).data;
+      return (await apiService.get<ExecuteFilterDto<T>>(url, {
+        params: {
+          firstResult,
+          maxResults,
+        }
+      })).data;
     },
   
     // Execute a filter to count the filtered items
