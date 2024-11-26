@@ -106,4 +106,8 @@ export const API_ENDPOINTS = {
     DELETE_BY_KEY: '/process-definition/key/{key}',
     DELETE_BY_KEY_AND_TENANT: '/process-definition/key/{key}/tenant-id/{tenantId}',
   },
+  HISTORIC_USER_OPERATION_LOG: {
+    LIST: '/history/user-operation',
+    COUNT: '/history/user-operation/count',
+  },  
 };

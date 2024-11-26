@@ -24,6 +24,9 @@ import {
   StartProcessInstanceResponseDto,
   ProcessDefinitionDto,
   ProcessDefinitionXmlDto,
+  HistoricUserOperationLogQueryDto,
+  HistoricUserOperationLogDto,
+  HistoricUserOperationLogCountDto,
 } from './types';
 import { addTaskAttachment } from './attachment';
 
@@ -470,7 +473,31 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
     deleteProcessDefinitionById: async (id: string): Promise<void> => {
       const url = API_ENDPOINTS.PROCESS_DEFINITION.DELETE_BY_ID.replace('{id}', id);
       await apiService.delete<void>(url);
-    },  
+    },
+
+    // List historic user operation logs with optional query parameters
+    listHistoricUserOperationLogs: async (
+      query?: HistoricUserOperationLogQueryDto
+    ): Promise<HistoricUserOperationLogDto[]> => {
+      return (
+        await apiService.get<HistoricUserOperationLogDto[]>(
+          API_ENDPOINTS.HISTORIC_USER_OPERATION_LOG.LIST,
+          { params: query }
+        )
+      ).data;
+    },
+  
+    // Count historic user operation logs with optional query parameters
+    countHistoricUserOperationLogs: async (
+      query?: HistoricUserOperationLogQueryDto
+    ): Promise<HistoricUserOperationLogCountDto> => {
+      return (
+        await apiService.get<HistoricUserOperationLogCountDto>(
+          API_ENDPOINTS.HISTORIC_USER_OPERATION_LOG.COUNT,
+          { params: query }
+        )
+      ).data;
+    },
   };
 };
 

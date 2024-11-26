@@ -274,3 +274,44 @@ export interface StartProcessInstanceResponseDto {
   tenantId?: string;
   variables?: Record<string, VariableValueDto>;
 }
+
+export interface HistoricUserOperationLogDto {
+  id: string;
+  operationId: string;
+  userId: string;
+  timestamp: string; // ISO date format
+  operationType: string;
+  entityType: string;
+  property: string;
+  orgValue?: string;
+  newValue?: string;
+  deploymentId?: string;
+  processDefinitionId?: string;
+  processDefinitionKey?: string;
+  processInstanceId?: string;
+  caseDefinitionId?: string;
+  caseInstanceId?: string;
+  taskId?: string;
+  externalTaskId?: string;
+  batchId?: string;
+  tenantId?: string;
+  rootProcessInstanceId?: string;
+  removalTime?: string; // ISO date format
+}
+
+export interface HistoricUserOperationLogQueryDto {
+  processInstanceId?: string;
+  processDefinitionId?: string;
+  userId?: string;
+  operationType?: string;
+  entityType?: string;
+  property?: string;
+  sortBy?: string;
+  sortOrder?: string;
+  firstResult?: number;
+  maxResults?: number;
+}
+
+export interface HistoricUserOperationLogCountDto {
+  count: number;
+}
