@@ -496,14 +496,18 @@ export interface GroupDto {
   type: string;
 }
 
-export interface GroupQueryDto {
-  name?: string; // Restrict to groups with the given name
-  type?: string; // Restrict to groups with the given type
-  member?: string; // Restrict to groups with the given member
-  sortBy?: string; // Sort results by a specific field
+export interface GetGroupQueryDto {
+  sortBy?: 'id' | 'name' | 'type'; // Sort by a specific field
   sortOrder?: 'asc' | 'desc'; // Sorting order
-  firstResult?: number; // Pagination: index of the first result
-  maxResults?: number; // Pagination: maximum number of results
+  firstResult?: number; // Pagination: index of the first result to return
+  maxResults?: number; // Pagination: maximum number of results to return
+  id?: string; // Filter by the ID of the group
+  idIn?: string; // Filter by a comma-separated list of group IDs
+  name?: string; // Filter by the name of the group
+  nameLike?: string; // Filter by names that contain the parameter value as a substring
+  type?: string; // Filter by the type of the group
+  member?: string; // Retrieve groups where the given user ID is a member
+  memberOfTenant?: string; // Retrieve groups that are members of the given tenant
 }
 
 export interface GroupMemberDto {
