@@ -309,9 +309,12 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
     },
 
     // Task Identity Link APIs
-    listTaskIdentityLinks: async (taskId: string): Promise<TaskIdentityLinkDto[]> => {
+    listTaskIdentityLinks: async (taskId: string, query: {type?: string}): Promise<TaskIdentityLinkDto[]> => {
       const url = API_ENDPOINTS.TASK_IDENTITY_LINK.LIST.replace('{id}', taskId);
-      return (await apiService.get<TaskIdentityLinkDto[]>(url)).data;
+      return (await apiService.get<TaskIdentityLinkDto[]>(
+        url,
+        { params: query }
+      )).data;
     },
 
     createTaskIdentityLink: async (
@@ -322,22 +325,9 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
       return (await apiService.post<Partial<TaskIdentityLinkDto>, TaskIdentityLinkDto>(url, data)).data;
     },
 
-    deleteTaskIdentityLink: async (taskId: string, identityLinkId: string): Promise<void> => {
-      const url = API_ENDPOINTS.TASK_IDENTITY_LINK.DELETE.replace('{id}', taskId).replace(
-        '{identityLinkId}',
-        identityLinkId
-      );
-      await apiService.delete<void>(url);
-    },
-
-    listTaskIdentityLinkUsers: async (taskId: string): Promise<TaskIdentityLinkDto[]> => {
-      const url = API_ENDPOINTS.TASK_IDENTITY_LINK.LIST_USERS.replace('{id}', taskId);
-      return (await apiService.get<TaskIdentityLinkDto[]>(url)).data;
-    },
-
-    listTaskIdentityLinkGroups: async (taskId: string): Promise<TaskIdentityLinkDto[]> => {
-      const url = API_ENDPOINTS.TASK_IDENTITY_LINK.LIST_GROUPS.replace('{id}', taskId);
-      return (await apiService.get<TaskIdentityLinkDto[]>(url)).data;
+    deleteTaskIdentityLink: async (taskId: string, data: Partial<TaskIdentityLinkDto>): Promise<void> => {
+      const url = API_ENDPOINTS.TASK_IDENTITY_LINK.DELETE.replace('{id}', taskId);
+      await apiService.post<Partial<TaskIdentityLinkDto>, void>(url, data);
     },
 
     // Task Local Variable APIs

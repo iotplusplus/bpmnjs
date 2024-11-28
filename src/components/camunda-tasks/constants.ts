@@ -72,10 +72,8 @@ export const API_ENDPOINTS = {
   },
   TASK_IDENTITY_LINK: {
     LIST: '/task/{id}/identity-links',
-    CREATE: '/task/{id}/identity-links/create',
-    DELETE: '/task/{id}/identity-links/{identityLinkId}',
-    LIST_USERS: '/task/{id}/identity-links/users',
-    LIST_GROUPS: '/task/{id}/identity-links/groups',
+    CREATE: '/task/{id}/identity-links',
+    DELETE: '/task/{id}/identity-links/delete',
   },
   TASK_LOCAL_VARIABLE: {
     LIST: '/task/{id}/localVariables',

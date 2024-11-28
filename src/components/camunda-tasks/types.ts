@@ -496,7 +496,7 @@ export interface GroupDto {
   type: string;
 }
 
-export interface GetGroupQueryDto {
+export interface GroupQueryDto {
   sortBy?: 'id' | 'name' | 'type'; // Sort by a specific field
   sortOrder?: 'asc' | 'desc'; // Sorting order
   firstResult?: number; // Pagination: index of the first result to return
