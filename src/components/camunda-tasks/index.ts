@@ -40,6 +40,11 @@ import {
   ExecuteFilterCountDto,
   SortingOptionDto,
   ExtendedFilterInfoDto,
+  CreateTaskCommentDto,
+  GroupOptionsDto,
+  GroupMemberDto,
+  GroupDto,
+  GroupQueryDto,
 } from './types';
 import { addTaskAttachment } from './attachment';
 
@@ -290,9 +295,9 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
       return (await apiService.get<TaskCommentDto[]>(url)).data;
     },
 
-    createTaskComment: async (taskId: string, data: Partial<TaskCommentDto>): Promise<TaskCommentDto> => {
+    createTaskComment: async (taskId: string, data: CreateTaskCommentDto): Promise<TaskCommentDto> => {
       const url = API_ENDPOINTS.TASK_COMMENT.CREATE.replace('{id}', taskId);
-      return (await apiService.post<Partial<TaskCommentDto>, TaskCommentDto>(url, data)).data;
+      return (await apiService.post<CreateTaskCommentDto, TaskCommentDto>(url, data)).data;
     },
 
     getTaskCommentById: async (taskId: string, commentId: string): Promise<TaskCommentDto> => {
@@ -645,6 +650,59 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
       const url = API_ENDPOINTS.FILTER.EXTENDED_INFO_LIST.replace('{id}', id).replace('{resourceId}', resourceId);
       return (await apiService.get<ExecuteFilterDto<T>>(url)).data;
     },
+
+    listGroups: async (params?: GroupQueryDto): Promise<GroupDto[]> =>
+      (await apiService.get<GroupDto[]>(API_ENDPOINTS.GROUP.LIST, { params })).data,
+  
+    listGroupsPost: async (data: GroupQueryDto): Promise<GroupDto[]> =>
+      (await apiService.post<GroupQueryDto, GroupDto[]>(API_ENDPOINTS.GROUP.LIST_POST, data)).data,
+  
+    getGroupCount: async (params?: GroupQueryDto): Promise<number> =>
+      (await apiService.get<{ count: number }>(API_ENDPOINTS.GROUP.COUNT, { params })).data.count,
+  
+    getGroupCountPost: async (data: GroupQueryDto): Promise<number> =>
+      (await apiService.post<GroupQueryDto, { count: number }>(API_ENDPOINTS.GROUP.COUNT_POST, data)).data.count,
+  
+    createGroup: async (data: GroupDto): Promise<GroupDto> =>
+      (await apiService.post<GroupDto, GroupDto>(API_ENDPOINTS.GROUP.CREATE, data)).data,
+  
+    getGroupById: async (id: string): Promise<GroupDto> => {
+      const url = API_ENDPOINTS.GROUP.GET_BY_ID.replace('{id}', id);
+      return (await apiService.get<GroupDto>(url)).data;
+    },
+  
+    updateGroup: async (id: string, data: GroupDto): Promise<void> => {
+      const url = API_ENDPOINTS.GROUP.UPDATE.replace('{id}', id);
+      await apiService.put<GroupDto, void>(url, data);
+    },
+  
+    deleteGroup: async (id: string): Promise<void> => {
+      const url = API_ENDPOINTS.GROUP.DELETE.replace('{id}', id);
+      await apiService.delete<void>(url);
+    },
+  
+    getGroupMembers: async (id: string): Promise<GroupMemberDto[]> => {
+      const url = API_ENDPOINTS.GROUP.GET_MEMBERS.replace('{id}', id);
+      return (await apiService.get<GroupMemberDto[]>(url)).data;
+    },
+  
+    addGroupMember: async (id: string, userId: string): Promise<void> => {
+      const url = API_ENDPOINTS.GROUP.ADD_MEMBER.replace('{id}', id).replace('{userId}', userId);
+      await apiService.put<void, void>(url);
+    },
+  
+    deleteGroupMember: async (id: string, userId: string): Promise<void> => {
+      const url = API_ENDPOINTS.GROUP.DELETE_MEMBER.replace('{id}', id).replace('{userId}', userId);
+      await apiService.delete<void>(url);
+    },
+  
+    getGroupOptions: async (): Promise<GroupOptionsDto> =>
+      (await apiService.options<GroupOptionsDto>(API_ENDPOINTS.GROUP.OPTIONS)).data,
+  
+    getGroupMembersOptions: async (id: string): Promise<GroupOptionsDto> => {
+      const url = API_ENDPOINTS.GROUP.MEMBERS_OPTIONS.replace('{id}', id);
+      return (await apiService.options<GroupOptionsDto>(url)).data;
+    },  
   };
 };
 

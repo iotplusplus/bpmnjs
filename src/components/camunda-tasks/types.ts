@@ -188,6 +188,11 @@ export interface TaskAttachmentDto {
   rootProcessInstanceId?: string;
 }
 
+export interface CreateTaskCommentDto {
+  message: string;
+  processInstanceId: string;
+}
+
 export interface TaskCommentDto {
   id: string;
   taskId: string;
@@ -483,4 +488,28 @@ export interface ExtendedFilterInfoDto {
 export interface SortingOptionDto {
   field: string;
   order: 'asc' | 'desc';
+}
+
+export interface GroupDto {
+  id: string;
+  name: string;
+  type: string;
+}
+
+export interface GroupQueryDto {
+  name?: string; // Restrict to groups with the given name
+  type?: string; // Restrict to groups with the given type
+  member?: string; // Restrict to groups with the given member
+  sortBy?: string; // Sort results by a specific field
+  sortOrder?: 'asc' | 'desc'; // Sorting order
+  firstResult?: number; // Pagination: index of the first result
+  maxResults?: number; // Pagination: maximum number of results
+}
+
+export interface GroupMemberDto {
+  userId: string;
+}
+
+export interface GroupOptionsDto {
+  links: Array<{ href: string; rel: string; method: string }>;
 }
