@@ -270,11 +270,17 @@ export interface TaskCreateDto {
 }
 
 export interface TaskUpdateDto {
-  name?: string;
+  name: string;
   assignee?: string;
   dueDate?: string; // Date in ISO format
   followUpDate?: string; // Date in ISO format
-  priority?: number;
+  delegationState?: string;
+  priority: number;
+  tenantId?: string;
+  description: null,
+  owner?: string;
+  parentTaskId?: string;
+  caseInstanceId?: string;
 }
 
 export interface AttachmentCreateDto {
