@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import ApiService from './api';
 import { API_ENDPOINTS } from './constants';
 import {
