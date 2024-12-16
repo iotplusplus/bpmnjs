@@ -2,10 +2,10 @@ import React, { useEffect, useRef } from "react";
 import BpmnModeler from "bpmn-js/lib/Modeler";
 
 const BPMNEditor = ({ 
-  bpmnXML, taskDefinitionKey, taskDefinitionKeyColor,
+  bpmnXML, taskDefinitionKeys, taskDefinitionKeyColors,
   height, width, containerStyle,
 }: { 
-  bpmnXML: string; taskDefinitionKey?: string, taskDefinitionKeyColor?: string,
+  bpmnXML: string; taskDefinitionKeys?: (string | undefined)[], taskDefinitionKeyColors?: string[],
   height?: string | number, width?: string | number, containerStyle?: React.CSSProperties,
 }) => {
   const modelerRef = useRef<BpmnModeler | null>(null);
@@ -23,9 +23,12 @@ const BPMNEditor = ({
     modeler
       .importXML(bpmnXML)
       .then(() => {
-        if (taskDefinitionKey) {
-          console.log({currentStatusItem: taskDefinitionKey});
-          changeElementBackground(taskDefinitionKey, !!taskDefinitionKeyColor?.length ? taskDefinitionKeyColor : "#90CAF9");
+        if (!!taskDefinitionKeys?.length) {
+          taskDefinitionKeys.forEach((taskDefinitionKey, index) => {
+            console.log({currentStatusItem: taskDefinitionKey});
+            if(!!taskDefinitionKey)
+              changeElementBackground(taskDefinitionKey, !!taskDefinitionKeyColors?.length ? taskDefinitionKeyColors[index] : "#90CAF9");
+          })
         }
       })
       .catch((err) => {
@@ -35,7 +38,7 @@ const BPMNEditor = ({
     return () => {
       modeler.destroy();
     };
-  }, [bpmnXML, taskDefinitionKey]);
+  }, [bpmnXML, taskDefinitionKeys]);
 
   const changeElementBackground = (elementId: string, color: string) => {
     if (!modelerRef.current) return;
