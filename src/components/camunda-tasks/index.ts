@@ -47,6 +47,7 @@ import {
   GroupQueryDto,
   TaskQueryDto,
   TenantDto,
+  DeploymentDto,
 } from './types';
 import { addTaskAttachment } from './attachment';
 
@@ -719,7 +720,13 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
   
     createTenant: async (data: TenantDto): Promise<TenantDto> =>
       (await apiService.post<TenantDto, TenantDto>(API_ENDPOINTS.TENANT.CREATE, data)).data,
-  
+
+    deployProcessToTenant: async (requestBody: Record<string, any>): Promise<DeploymentDto> =>
+      (await apiService.post<any, any>(
+        `${API_ENDPOINTS.DEPLOYMENT.CREATE}`,
+        requestBody,
+        { headers: { 'Content-Type': 'multipart/form-data' } }
+      )).data,
   };
 };
 

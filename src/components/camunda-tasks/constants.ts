@@ -171,4 +171,12 @@ export const API_ENDPOINTS = {
     UPDATE_MEMBERS: '/tenant/{id}/user-members/{userId}',
     DELETE_MEMBERS: '/tenant/{id}/user-members/{userId}'
   },
+  DEPLOYMENT: {
+    LIST: '/deployment',
+    CREATE: '/deployment/create',
+    DELETE: '/deployment/{id}',
+    GET_BY_ID: '/deployment/{id}',
+    RESOURCES_BY_ID: '/deployment/{id}/resources',
+    REDEPLOY: '/deployment/{id}/redeploy'
+  }
 };

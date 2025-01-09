@@ -528,3 +528,16 @@ export interface TenantDto {
   id: string,
   name: string
 }
+
+export interface DeploymentDto {
+  id?: string;
+  tenantId?: string;
+  deploymentTime?: string;
+  source?: string;
+  name?: string;
+  links?: [{
+    rel?: string;
+    href?: string;
+    method?: string;
+  }];
+}
