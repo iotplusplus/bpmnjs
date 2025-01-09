@@ -45,6 +45,8 @@ import {
   GroupMemberDto,
   GroupDto,
   GroupQueryDto,
+  TaskQueryDto,
+  TenantDto,
 } from './types';
 import { addTaskAttachment } from './attachment';
 
@@ -194,7 +196,7 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
 
     // Task APIs
     listTasks: async (
-      query?: HistoricUserOperationLogQueryDto
+      query?: TaskQueryDto
     ): Promise<TaskDto[]> =>
       (await apiService.get<TaskDto[]>(API_ENDPOINTS.TASK.LIST,
         { params: query }
@@ -436,6 +438,11 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
     listProcessDefinitions: async (): Promise<ProcessDefinitionDto[]> =>
       (await apiService.get<ProcessDefinitionDto[]>(API_ENDPOINTS.PROCESS_DEFINITION.LIST)).data,
   
+    listProcessDefinitionByTenantId: async (tenantId: string): Promise<ProcessDefinitionDto[]> => {
+      const url = API_ENDPOINTS.PROCESS_DEFINITION.LIST_BY_TENANT.replace('{tenantId}', tenantId);
+      return (await apiService.get<ProcessDefinitionDto[]>(url)).data;
+    },
+
     getProcessDefinitionById: async (id: string): Promise<ProcessDefinitionDto> => {
       const url = API_ENDPOINTS.PROCESS_DEFINITION.GET_BY_ID.replace('{id}', id);
       return (await apiService.get<ProcessDefinitionDto>(url)).data;
@@ -443,6 +450,11 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
   
     getProcessDefinitionByKey: async (key: string): Promise<ProcessDefinitionDto> => {
       const url = API_ENDPOINTS.PROCESS_DEFINITION.GET_BY_KEY.replace('{key}', key);
+      return (await apiService.get<ProcessDefinitionDto>(url)).data;
+    },
+
+    getProcessDefinitionByKeyAndTenantId: async (key: string, tenantId: string): Promise<ProcessDefinitionDto> => {
+      const url = API_ENDPOINTS.PROCESS_DEFINITION.GET_BY_KEY_AND_TENANT.replace('{key}', key).replace('{tenantId}', tenantId);
       return (await apiService.get<ProcessDefinitionDto>(url)).data;
     },
   
@@ -472,6 +484,14 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
       return (await apiService.post<StartProcessInstanceDto, StartProcessInstanceResponseDto>(url, data)).data;
     },
   
+    startProcessInstanceByKeyAndTenantId: async (
+      key: string, tenantId: string,
+      data: StartProcessInstanceDto
+    ): Promise<StartProcessInstanceResponseDto> => {
+      const url = API_ENDPOINTS.PROCESS_DEFINITION.START_BY_KEY_AND_TENANT.replace('{key}', key).replace('{tenantId}', tenantId);
+      return (await apiService.post<StartProcessInstanceDto, StartProcessInstanceResponseDto>(url, data)).data;
+    },
+
     suspendProcessDefinitionById: async (id: string, data: { suspended: boolean; includeProcessInstances?: boolean }) => {
       const url = API_ENDPOINTS.PROCESS_DEFINITION.SUSPEND_BY_ID.replace('{id}', id);
       await apiService.put<typeof data, void>(url, data);
@@ -693,6 +713,13 @@ export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => 
       const url = API_ENDPOINTS.GROUP.MEMBERS_OPTIONS.replace('{id}', id);
       return (await apiService.options<GroupOptionsDto>(url)).data;
     },  
+
+    listTenants: async (): Promise<TenantDto[]> =>
+      (await apiService.get<TenantDto[]>(API_ENDPOINTS.TENANT.LIST)).data,
+  
+    createTenant: async (data: TenantDto): Promise<TenantDto> =>
+      (await apiService.post<TenantDto, TenantDto>(API_ENDPOINTS.TENANT.CREATE, data)).data,
+  
   };
 };
 

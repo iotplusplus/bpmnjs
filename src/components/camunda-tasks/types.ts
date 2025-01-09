@@ -523,3 +523,8 @@ export interface GroupMemberDto {
 export interface GroupOptionsDto {
   links: Array<{ href: string; rel: string; method: string }>;
 }
+
+export interface TenantDto {
+  id: string,
+  name: string
+}

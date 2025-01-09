@@ -38,6 +38,7 @@ export const API_ENDPOINTS = {
   },
   TASK: {
     LIST: '/task',
+    LIST_BY_TENANT: '/task?tenantIdIn={tenantId}',
     COUNT: '/task/count',
     CREATE: '/task/create',
     GET_BY_ID: '/task/{id}',
@@ -93,6 +94,7 @@ export const API_ENDPOINTS = {
   },
   PROCESS_DEFINITION: {
     LIST: '/process-definition',
+    LIST_BY_TENANT: '/process-definition?tenantIdIn={tenantId}',
     GET_BY_ID: '/process-definition/{id}',
     GET_BY_KEY: '/process-definition/key/{key}',
     GET_BY_KEY_AND_TENANT: '/process-definition/key/{key}/tenant-id/{tenantId}',
@@ -111,6 +113,13 @@ export const API_ENDPOINTS = {
     DELETE_BY_ID: '/process-definition/{id}',
     DELETE_BY_KEY: '/process-definition/key/{key}',
     DELETE_BY_KEY_AND_TENANT: '/process-definition/key/{key}/tenant-id/{tenantId}',
+  },
+  PROCESS_INSTANCE: {
+    LIST: '/process-instance',
+    LIST_BY_TENANT: '/process-instance?tenantIdIn={tenantId}',
+    GET_BY_ID: '/process-instance/{id}',
+    ACTIVEINSTANCES_BY_ID: '/process-instance/{id}/activity-instances',
+    VARIABLES_BY_ID: '/process-instance/{id}/variables',
   },
   HISTORIC_USER_OPERATION_LOG: {
     LIST: '/history/user-operation',
@@ -146,5 +155,20 @@ export const API_ENDPOINTS = {
     DELETE_MEMBER: '/group/{id}/members/{userId}',
     OPTIONS: '/group',
     MEMBERS_OPTIONS: '/group/{id}/members',
+  },
+  TENANT: {
+    LIST: '/tenant',
+    COUNT: '/tenant/count',
+    CREATE: '/tenant/create',
+    GET_BY_ID: '/tenant/{id}',
+    UPDATE: '/tenant/{id}',
+    DELETE: '/tenant/{id}',
+    GET_GROUP_MEMBERS: '/tenant/{id}/group-members',
+    ADD_GROUP_MEMBERS: '/tenant/{id}/group-members/{groupId}',
+    DELETE_GROUP_MEMBERS: '/tenant/{id}/group-members/{groupId}',
+    GROUP_MEMBERS_OPTIONS: '/tenant/{id}/group-members',
+    MEMBERS_OPTIONS: '/tenant/{id}/user-members',
+    UPDATE_MEMBERS: '/tenant/{id}/user-members/{userId}',
+    DELETE_MEMBERS: '/tenant/{id}/user-members/{userId}'
   },
 };
