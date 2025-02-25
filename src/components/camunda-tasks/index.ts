@@ -53,8 +53,8 @@ import { addTaskAttachment } from './attachment';
 interface ServerConfig {
     baseUrl: string;
     contextPath?: string;
-    accessToken: string;
-    organizationId: string;
+    accessToken?: string;
+    organizationId?: string;
 }
 
 const computeBaseUrl = ({ baseUrl, contextPath = 'engine-rest' }: ServerConfig) => {
@@ -63,7 +63,7 @@ const computeBaseUrl = ({ baseUrl, contextPath = 'engine-rest' }: ServerConfig) 
 
 export const CamundaAPI = ({ serverConfig }: { serverConfig: ServerConfig }) => {
   const baseUrl = computeBaseUrl(serverConfig);
-  const apiService = new ApiService(baseUrl, serverConfig.organizationId, serverConfig.accessToken);
+  const apiService = new ApiService(baseUrl, serverConfig?.organizationId ?? "", serverConfig?.accessToken ?? "");
 
   return {
     // Authorization APIs
