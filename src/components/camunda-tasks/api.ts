@@ -3,8 +3,11 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 class ApiService {
   private client: AxiosInstance;
 
-  constructor(baseUrl: string) {
+  constructor(baseUrl: string, organizationId: string, accessToken: string) {
     this.client = axios.create({ baseURL: baseUrl });
+
+    this.client.defaults.headers.common['Authorization'] = `${accessToken}`;
+    this.client.defaults.headers.common['organizationId'] = organizationId;
   }
 
   public get<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
