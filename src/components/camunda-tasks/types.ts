@@ -272,8 +272,8 @@ export interface TaskCreateDto {
 export interface TaskUpdateDto {
   name: string;
   assignee?: string;
-  dueDate?: string; // Date in ISO format
-  followUpDate?: string; // Date in ISO format
+  due?: string; // Date in ISO format
+  followUp?: string; // Date in ISO format
   delegationState?: string;
   priority: number;
   tenantId?: string;
