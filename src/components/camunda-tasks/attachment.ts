@@ -8,7 +8,7 @@ export async function addTaskAttachment({
     url: string;
     payload: CreateTaskAttachmentPayload;
 }) {
-    console.log({url, payload});
+    // console.log({url, payload});
     
     const formData = new FormData();
     formData.append('attachment-name', payload['attachment-name']);
@@ -32,7 +32,7 @@ export async function addTaskAttachment({
             formData,
             config,
         );
-        console.log('Attachment added successfully:', response.data);
+        // console.log('Attachment added successfully:', response.data);
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {

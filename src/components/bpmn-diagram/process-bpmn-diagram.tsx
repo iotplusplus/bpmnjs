@@ -29,14 +29,14 @@ const BPMNEditor = ({
       .then(() => {
         if (!!taskDefinitionKeys?.length) {
           taskDefinitionKeys.forEach((taskDefinitionKey, index) => {
-            console.log({currentStatusItem: taskDefinitionKey});
+            // console.log({currentStatusItem: taskDefinitionKey});
             if(!!taskDefinitionKey)
               changeElementBackground(taskDefinitionKey, !!taskDefinitionKeyColors?.length ? taskDefinitionKeyColors[index] : "#90CAF9");
           })
         }
         if (!!taskInstancesCount?.length) {
           taskInstancesCount.forEach((taskInstance, index) => {
-            console.log({ currentCountItem: taskInstance });
+            // console.log({ currentCountItem: taskInstance });
             if (!!taskInstance?.activityId && taskInstance?.count) {
               addTaskInstanceOverlay(taskInstance?.activityId, taskInstance?.count);
             }
