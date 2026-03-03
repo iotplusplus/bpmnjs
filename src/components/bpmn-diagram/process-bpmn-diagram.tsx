@@ -60,7 +60,7 @@ const BPMNEditor = ({
 
     const element = elementRegistry.get(elementId);
     if (!element) {
-      console.error(`Element with ID ${elementId} not found`);
+      // Element may be from another process or not present in this diagram — skip silently
       return;
     }
 
@@ -77,7 +77,7 @@ const BPMNEditor = ({
 
     const element = elementRegistry.get(elementId);
     if (!element) {
-      console.error(`Element with ID ${elementId} not found for overlays`);
+      // Element may be from another process or not present in this diagram — skip silently
       return;
     }
     overlays.add(element, {

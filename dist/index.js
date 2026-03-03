@@ -31,4 +31,5 @@ var process_bpmn_diagram_1 = require("./components/bpmn-diagram/process-bpmn-dia
 Object.defineProperty(exports, "BPMNEditor", { enumerable: true, get: function () { return __importDefault(process_bpmn_diagram_1).default; } });
 var index_1 = require("./components/camunda-tasks/index");
 Object.defineProperty(exports, "CamundaAPI", { enumerable: true, get: function () { return index_1.CamundaAPI; } });
-exports.CamundaTaskTypes = __importStar(require("./components/camunda-tasks/types"));
+const CamundaTaskTypes = __importStar(require("./components/camunda-tasks/types"));
+exports.CamundaTaskTypes = CamundaTaskTypes;
