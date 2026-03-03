@@ -34,34 +34,42 @@ const BPMNEditor = ({ bpmnXML, taskDefinitionKeys, taskDefinitionKeyColors, heig
     (0, react_1.useEffect)(() => {
         if (!containerRef.current)
             return;
+        const xml = typeof bpmnXML === "string" ? bpmnXML.trim() : "";
+        if (!xml)
+            return;
         const modeler = new Modeler_1.default({
             container: containerRef.current,
         });
         modelerRef.current = modeler;
+        let cancelled = false;
         modeler
-            .importXML(bpmnXML)
+            .importXML(xml)
             .then(() => {
+            if (cancelled || modelerRef.current !== modeler)
+                return;
             if (!!(taskDefinitionKeys === null || taskDefinitionKeys === void 0 ? void 0 : taskDefinitionKeys.length)) {
                 taskDefinitionKeys.forEach((taskDefinitionKey, index) => {
-                    // console.log({currentStatusItem: taskDefinitionKey});
                     if (!!taskDefinitionKey)
                         changeElementBackground(taskDefinitionKey, !!(taskDefinitionKeyColors === null || taskDefinitionKeyColors === void 0 ? void 0 : taskDefinitionKeyColors.length) ? taskDefinitionKeyColors[index] : "#90CAF9");
                 });
             }
             if (!!(taskInstancesCount === null || taskInstancesCount === void 0 ? void 0 : taskInstancesCount.length)) {
-                taskInstancesCount.forEach((taskInstance, index) => {
-                    // console.log({ currentCountItem: taskInstance });
+                taskInstancesCount.forEach((taskInstance) => {
                     if (!!(taskInstance === null || taskInstance === void 0 ? void 0 : taskInstance.activityId) && (taskInstance === null || taskInstance === void 0 ? void 0 : taskInstance.count)) {
-                        addTaskInstanceOverlay(taskInstance === null || taskInstance === void 0 ? void 0 : taskInstance.activityId, taskInstance === null || taskInstance === void 0 ? void 0 : taskInstance.count);
+                        addTaskInstanceOverlay(taskInstance.activityId, taskInstance.count);
                     }
                 });
             }
         })
             .catch((err) => {
-            console.error("Failed to load BPMN diagram", err);
+            if (!cancelled)
+                console.error("Failed to load BPMN diagram", err);
         });
         return () => {
+            cancelled = true;
             modeler.destroy();
+            if (modelerRef.current === modeler)
+                modelerRef.current = null;
         };
     }, [bpmnXML, taskDefinitionKeys]);
     const changeElementBackground = (elementId, color) => {
